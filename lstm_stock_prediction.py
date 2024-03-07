@@ -36,7 +36,7 @@ def plot_predictions_vs_actual(actual_prices, predicted_prices):
 def main():
     # Specify parameters
     ticker_symbol = "SPY"
-    start_date = "2020-01-01"
+    start_date = "2018-01-01"
     end_date = "2022-01-01"
     seq_length = 20  # Adjust as needed
 
@@ -46,18 +46,18 @@ def main():
     # Preprocess data
     train_sequences, test_sequences, scaler = preprocess_data(ticker_symbol, start_date, end_date, seq_length)
 
-    # Define the LSTM model (unchanged)
+    # Define the LSTM model 
     model = Sequential()
     model.add(LSTM(units=50, return_sequences=True, input_shape=(seq_length, 1)))
     model.add(LSTM(units=50))
     model.add(Dense(units=1))
     model.compile(optimizer='adam', loss='mean_squared_error')
 
-    # Train the model (unchanged)
+    # Train the model 
     X_train, y_train = zip(*train_sequences)
     X_train = np.array(X_train)
     y_train = np.array(y_train)
-    model.fit(X_train, y_train, epochs=50, batch_size=32)
+    model.fit(X_train, y_train, epochs=50, batch_size=64)
 
     # Make predictions
     X_test, y_test = zip(*test_sequences)
